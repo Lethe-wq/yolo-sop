@@ -25,6 +25,7 @@ datasets/
 *.engine
 *.tar
 *.zip
+!yolov8s.pt
 !tests/fixtures/**/*.tar
 !tests/fixtures/**/*.zip
 

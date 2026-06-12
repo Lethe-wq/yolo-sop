@@ -1,6 +1,6 @@
 # yolo-api
 
-`yolo-api` 是一个基于 FastAPI 与 Ultralytics YOLO 的本地工件检测服务，面向本地部署场景提供目标检测、标注图返回、模型信息查询与热切换，以及训练任务管理能力。面向 GitHub 的开源发布分支仅公开源码与文档；模型权重、数据集、训练输出等运行工件需要由使用方单独提供。
+`yolo-api` 是一个基于 FastAPI 与 Ultralytics YOLO 的本地工件检测服务，面向本地部署场景提供目标检测、标注图返回、模型信息查询与热切换，以及训练任务管理能力。仓库附带 `yolov8s.pt` 作为基础权重示例，便于快速启动；训练数据集、训练输出和其他运行工件可按实际场景自行准备。
 
 ## 功能特性
 
@@ -66,7 +66,7 @@ python -m pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-`.env.example` 中的 `SOP_HOST`、`SOP_PORT`、`SOP_DEVICE`、`SOP_MODEL_WEIGHTS`、`SOP_BASE_WEIGHTS` 都可以按需修改。默认值由 `app/config.py` 定义，权重路径支持绝对路径或相对项目根目录的相对路径。由于服务会在启动时立即加载模型，首次启动前必须先准备可用的 YOLO 权重文件，并确保 `SOP_MODEL_WEIGHTS` 与 `SOP_BASE_WEIGHTS` 指向有效路径。
+`.env.example` 中的 `SOP_HOST`、`SOP_PORT`、`SOP_DEVICE`、`SOP_MODEL_WEIGHTS`、`SOP_BASE_WEIGHTS` 都可以按需修改。默认值由 `app/config.py` 定义，权重路径支持绝对路径或相对项目根目录的相对路径。仓库默认附带 `yolov8s.pt` 作为基础权重；如果你使用自己的模型，请在首次启动前将 `SOP_MODEL_WEIGHTS` 与 `SOP_BASE_WEIGHTS` 调整到有效路径。
 
 ### 运行
 
@@ -74,7 +74,7 @@ Copy-Item .env.example .env
 python main.py
 ```
 
-如果未先配置有效权重，服务会在启动阶段加载模型时失败。
+如果配置的权重路径无效，服务会在启动阶段加载模型时失败。
 
 开发时也可以使用：
 
@@ -109,9 +109,9 @@ python -m uvicorn main:app --reload --host 127.0.0.1 --port 10000
 
 ## 模型与数据集说明
 
-- 面向 GitHub 的开源发布分支不会发布模型权重文件，例如 `*.pt`、`*.onnx`、`*.engine`。
-- 面向 GitHub 的开源发布分支不会发布训练数据集、训练输出目录 `runs/`、上传归档或生成图片。
-- `SOP_MODEL_WEIGHTS` 和 `SOP_BASE_WEIGHTS` 需要指向你本地或外部存储中的实际权重文件。
+- 仓库默认附带 `yolov8s.pt`，可作为初始推理或训练基础权重使用。
+- 训练数据集、训练输出目录 `runs/`、上传归档或生成图片不随仓库一同维护。
+- `SOP_MODEL_WEIGHTS` 和 `SOP_BASE_WEIGHTS` 可以继续指向仓库内的 `yolov8s.pt`，也可以改为你本地或外部存储中的实际权重文件。
 - 训练数据集同样需要由使用方自行准备，并在训练接口请求或本地配置中提供路径。
 - 公开内容以源码、测试和文档为主，便于二次开发、部署和接口集成。
 
