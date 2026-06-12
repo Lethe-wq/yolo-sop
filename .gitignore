@@ -1,0 +1,35 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local worktrees
+.worktrees/
+
+# YOLO artifacts and local data
+runs/
+datasets/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.tar
+*.zip
+!tests/fixtures/**/*.tar
+!tests/fixtures/**/*.zip
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
